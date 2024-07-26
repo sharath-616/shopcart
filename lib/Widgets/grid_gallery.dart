@@ -33,7 +33,7 @@ class GridGallery extends StatelessWidget {
           builder: (context, homePageProvider, child) => homePageProvider.itemImage.pants.isEmpty
               ? const CustomText(text: 'No items available')
               : SizedBox(
-                  height: 400,
+                  height:500,
                   child: GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                     itemCount: homePageProvider.itemImage.shirts.length,
