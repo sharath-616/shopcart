@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -17,39 +18,51 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size(double.infinity, 80),
-        child: ShopAppBar(),
-      ),
       body: Consumer<HomePageProvider>(
         builder: (context, homePageProvider, child) {
-          if (homePageProvider.isLoading) {
-            return const Center(
-              child: SpinKitFadingCircle(
-                color: Color.fromARGB(255, 0, 0, 0),
-                size: 50.0,
+          return Column(
+            children: [
+              PreferredSize(
+                preferredSize: const Size(double.infinity, 80),
+                child: CustomAppbar(
+                  bellFunctions: () {},
+                  favoriteFunctions: () {
+                    homePageProvider.clickedfavor();
+                  },
+                  cartFunction: () {},
+                  bellIcons: CupertinoIcons.bell,
+                  favoriteIcons: homePageProvider.isfavor ? Icons.favorite : Icons.favorite_border,
+                  cartIcons: CupertinoIcons.bag,
+                  controller: homePageProvider.userSearchController,
+                ),
               ),
-            );
-          }
-
-          if (homePageProvider.itemImage.shirts.isEmpty) {
-            return const Center(
-              child: Text('No items available'),
-            );
-          }
-
-          return const SingleChildScrollView(
-            child: Column(
-              children: [
-                HomepageCircleavatar(),
-                HomepageAdds(),
-                HomepageSlider(),
-                Divider(),
-                BankAdds(),
-                Divider(),
-                GridGallery(),
-              ],
-            ),
+              Expanded(
+                child: homePageProvider.isLoading
+                    ? const Center(
+                        child: SpinKitFadingCircle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          size: 50.0,
+                        ),
+                      )
+                    : homePageProvider.itemImage.shirts.isEmpty
+                        ? const Center(
+                            child: Text('No items available'),
+                          )
+                        : const SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                HomepageCircleavatar(),
+                                HomepageAdds(),
+                                HomepageSlider(),
+                                Divider(),
+                                BankAdds(),
+                                Divider(),
+                                GridGallery(),
+                              ],
+                            ),
+                          ),
+              ),
+            ],
           );
         },
       ),
