@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shopcart/Const/const.dart';
 import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
-import 'package:shopcart/Screens/CartPage/cart_page.dart';
 import 'package:shopcart/Widgets/custom_text.dart';
 
 class GridGallery extends StatelessWidget {
@@ -30,21 +28,24 @@ class GridGallery extends StatelessWidget {
           ),
         ),
         Consumer<HomePageProvider>(
-          builder: (context, homePageProvider, child) => homePageProvider.itemImage.pants.isEmpty
+          builder: (context, homePageProvider, child) => homePageProvider.itemImage.shirts.isEmpty
               ? const CustomText(text: 'No items available')
               : SizedBox(
-                  height:500,
+                  height: 300,
                   child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.65,
+                      crossAxisSpacing: 0.01,
+                    ),
                     itemCount: homePageProvider.itemImage.shirts.length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: (){
-                          context.go(CartPage.classId);
-                        },
+                    itemBuilder: (context, index) {
+                      final shirt = homePageProvider.itemImage.shirts[index];
+                      final shirtName = homePageProvider.itemImage.itemName[index];
+                      final shirtPrice = homePageProvider.itemImage.itemPrice[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: 400,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.black, width: 2),
                             borderRadius: BorderRadius.circular(5),
@@ -55,49 +56,112 @@ class GridGallery extends StatelessWidget {
                             children: [
                               ClipRRect(
                                 borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
+                                  topLeft: Radius.circular(5),
+                                  topRight: Radius.circular(5),
                                 ),
-                                child: Image(
-                                  image: AssetImage(
-                                    homePageProvider.itemImage.shirts[index],
-                                  ),
+                                child: Image.asset(
+                                  shirt,
                                   fit: BoxFit.cover,
                                   height: 150,
                                   width: double.infinity,
                                 ),
                               ),
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(5.0),
-                                      child: CustomText(
-                                        text: 'price : 1000 ',
-                                        size: 15,
-                                        color: Colors.black,
-                                        fw: FontWeight.bold,
-                                      ),
-                                    ),
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.favorite,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CustomText(
+                                          text: shirtName,
                                           size: 15,
-                                          color: Colors.red,
-                                        ),),
+                                          color: Colors.black,
+                                          fw: FontWeight.bold,
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            homePageProvider.clickedfavor();
+                                          },
+                                          icon: homePageProvider.isfavor
+                                              ? const Icon(
+                                                  Icons.favorite,
+                                                  size: 20,
+                                                  color: Colors.red,
+                                                )
+                                              : const Icon(
+                                                  Icons.favorite_border,
+                                                  size: 20,
+                                                  color: Colors.red,
+                                                ),
+                                        ),
+                                      ],
+                                    ),
+                                    CustomText(
+                                      text: shirtPrice,
+                                      size: 15,
+                                      color: Colors.black,
+                                      fw: FontWeight.bold,
+                                    ),
                                   ],
                                 ),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                    homePageProvider.addItemToCart(
+                                      'shirt$index',
+                                      1000,
+                                      shirtName,
+                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: CustomText(
+                                          text: '$shirtName added to cart!',
+                                          size: 15,
+                                          color: Colors.white,
+                                          fw: FontWeight.bold,
+                                          letterSpacing: 3,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 200,
+                                    height: 30,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(5),
+                                      ),
+                                      color: Colors.black,
+                                    ),
+                                    child: const Center(
+                                      child: CustomText(
+                                        text: 'Add to Cart',
+                                        size: 15,
+                                        color: Colors.white,
+                                        fw: FontWeight.bold,
+                                        letterSpacing: 3,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+
+                            
                             ],
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ),
         ),
+
+          sizedBox,
       ],
     );
   }

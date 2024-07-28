@@ -39,6 +39,30 @@ class ItemImage {
     'Accessories',
   ];
 
+  final List<String> itemPrice = [
+    "Price : \$ :1000",
+    "Price : \$ :2000",
+    "Price : \$ :1500",
+    "Price : \$ :500",
+    "Price : \$ :1200",
+    "Price : \$ :800",
+    "Price : \$ :900",
+    "Price : \$ :5000",
+    "Price : \$ :400",
+  ];
+
+  final List<String> itemName = [
+    'BALMAIN',
+    'ARMANI',
+    'PRADA',
+    'GUCCI',
+    'MILANO',
+    'FENDI',
+    'GAP',
+    'BURBERRY',
+    'LEVIS',
+  ];
+
   final List<String> pants = [
     'assets/jeans/download.jpg',
     'assets/jeans/download (1).jpg',
@@ -51,13 +75,14 @@ class ItemImage {
     'assets/jeans/download (8).jpg',
   ];
 
-
   ItemImage(List list,
       {required List<String> itemText,
       required List<String> adds,
       required List<String> shirts,
       required List bank,
-      required List pants});
+      required List pants,
+      required List itemPrice,
+      required List itemName});
 
   get bank => null;
 }

@@ -19,25 +19,25 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80.0),
+        child: CustomAppbar(
+          bellFunctions: () {},
+          favoriteFunctions: () {
+            context.read<HomePageProvider>().clickedfavor();
+          },
+          cartFunction: () {},
+          bellIcons: CupertinoIcons.bell,
+          favoriteIcons: context.watch<HomePageProvider>().isfavor ? Icons.favorite : Icons.favorite_border,
+          cartIcons: CupertinoIcons.bag,
+          controller: context.watch<HomePageProvider>().userSearchController,
+        ),
+      ),
       body: Consumer<HomePageProvider>(
         builder: (context, homePageProvider, child) => SafeArea(
           child: Column(
             children: [
-              sizedBox,
-              PreferredSize(
-                preferredSize: const Size(double.infinity, 100),
-                child: CustomAppbar(
-                  bellFunctions: () {},
-                  favoriteFunctions: () {
-                    homePageProvider.clickedfavor();
-                  },
-                  cartFunction: () {},
-                  bellIcons: CupertinoIcons.bell,
-                  favoriteIcons: homePageProvider.isfavor ? Icons.favorite : Icons.favorite_border,
-                  cartIcons: CupertinoIcons.bag,
-                  controller: homePageProvider.userSearchController,
-                ),
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: homePageProvider.isLoading
                     ? const Center(
@@ -60,6 +60,9 @@ class Body extends StatelessWidget {
                                 BankAdds(),
                                 Divider(),
                                 GridGallery(),
+
+
+                              
                               ],
                             ),
                           ),
