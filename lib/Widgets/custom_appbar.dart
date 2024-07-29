@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
+import 'package:shopcart/Widgets/custom_text.dart';
 
 class CustomAppbar extends StatelessWidget {
   final void Function()? bellFunctions;
@@ -11,7 +14,7 @@ class CustomAppbar extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final String? title;
-  final Widget? leading; // Only this is needed for the leading icon/button
+  final Widget? leading;
 
   const CustomAppbar({
     super.key,
@@ -33,7 +36,7 @@ class CustomAppbar extends StatelessWidget {
     return AppBar(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       elevation: 0,
-      leading: leading, 
+      leading: leading,
       title: title != null
           ? Text(
               title!,
@@ -88,13 +91,43 @@ class CustomAppbar extends StatelessWidget {
             ),
           ),
         if (cartIcons != null)
-          IconButton(
-            onPressed: cartFunction,
-            icon: Icon(
-              cartIcons,
-              size: 30,
-              color: Colors.black,
-            ),
+          Stack(
+            children: [
+              IconButton(
+                onPressed: cartFunction,
+                icon: Icon(
+                  cartIcons,
+                  size: 30,
+                  color: Colors.black,
+                ),
+              ),
+              Consumer<HomePageProvider>(
+                builder: (context, homePageProvider, child) {
+                  return homePageProvider.cartItemCount > 0
+                      ? Positioned(
+                          right: 6,
+                          top: 10,
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(color: Colors.black, width: 1)),
+                            child: Center(
+                                child: CustomText(
+                              text: '${homePageProvider.cartItemCount}',
+                              size: 10,
+                              color: Colors.white,
+                              fw: FontWeight.bold,
+                            )),
+                          ),
+                        )
+                      : Container();
+                },
+              ),
+            ],
           ),
       ],
     );

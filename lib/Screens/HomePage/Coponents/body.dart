@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:shopcart/Const/const.dart';
 import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
 import 'package:shopcart/Service/bank_adds.dart';
 import 'package:shopcart/Service/homepage_adds.dart';
@@ -60,9 +59,6 @@ class Body extends StatelessWidget {
                                 BankAdds(),
                                 Divider(),
                                 GridGallery(),
-
-
-                              
                               ],
                             ),
                           ),
