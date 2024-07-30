@@ -34,7 +34,7 @@ class CustomAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       elevation: 0,
       leading: leading,
       title: title != null
@@ -82,17 +82,45 @@ class CustomAppbar extends StatelessWidget {
             ),
           ),
         if (favoriteIcons != null)
-          Badge(
-            label: Text(
-                '${Provider.of<HomePageProvider>(context).wishList.length}'),
-            child: InkWell(
-              onTap: favoriteFunctions,
-              child: Icon(
-                favoriteIcons,
-                size: 30,
-                color: const Color.fromARGB(255, 250, 12, 12),
+          Stack(
+            children: [
+              IconButton(
+                onPressed: favoriteFunctions,
+                icon: Icon(
+                  favoriteIcons,
+                  size: 30,
+                  color: const Color.fromARGB(255, 250, 12, 12),
+                ),
               ),
-            ),
+              Consumer<HomePageProvider>(
+                builder: (context, homePageProvider, child) =>
+                 homePageProvider.favorList.isNotEmpty
+                      ? Positioned(
+                          right: 6,
+                          top: 10,
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(color: Colors.black, width: 1),
+                            ),
+                            child: Center(
+                              child: CustomText(
+                                text: '${homePageProvider.favorItemCount}',
+                                size: 10,
+                                color: Colors.white,
+                                fw: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
+                
+              ),
+            ],
           ),
         if (cartIcons != null)
           Stack(
@@ -106,8 +134,8 @@ class CustomAppbar extends StatelessWidget {
                 ),
               ),
               Consumer<HomePageProvider>(
-                builder: (context, homePageProvider, child) {
-                  return homePageProvider.cartItemCount > 0
+                builder: (context, homePageProvider, child) =>
+                 homePageProvider.cartItemCount > 0
                       ? Positioned(
                           right: 6,
                           top: 10,
@@ -116,21 +144,22 @@ class CustomAppbar extends StatelessWidget {
                             height: 20,
                             padding: const EdgeInsets.all(2),
                             decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(50),
-                                border:
-                                    Border.all(color: Colors.black, width: 1)),
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(color: Colors.black, width: 1),
+                            ),
                             child: Center(
-                                child: CustomText(
-                              text: '${homePageProvider.cartItemCount}',
-                              size: 10,
-                              color: Colors.white,
-                              fw: FontWeight.bold,
-                            )),
+                              child: CustomText(
+                                text: '${homePageProvider.cartItemCount}',
+                                size: 10,
+                                color: Colors.white,
+                                fw: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         )
-                      : Container();
-                },
+                      : Container(),
+              
               ),
             ],
           ),

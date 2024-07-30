@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shopcart/Const/local_images.dart';
 import 'package:shopcart/Service/cart_item.dart';
+import 'package:shopcart/Service/favor_list.dart';
 
 class HomePageProvider extends ChangeNotifier {
   bool _isLoading = false;
@@ -23,6 +23,7 @@ class HomePageProvider extends ChangeNotifier {
   int _selectedIndex = 0;
 
   Map<String, CartItem> _cartItems = {};
+  Map<String, FavorList> _favorList = {};
 
   int get selectedIndex => _selectedIndex;
   bool get isLoading => _isLoading;
@@ -30,13 +31,21 @@ class HomePageProvider extends ChangeNotifier {
   String get error => _error;
   List _items = [];
   List get items => _items;
-  List _wishList = [];
-  List get wishList => _wishList;
   ItemImage get itemImage => _itemImage;
   TextEditingController get userSearchController => _userSearchController;
   PageController get pageViewController => _pageViewController;
   int get currentImage => _currentImage;
   Timer? get timer => _timer;
+
+  Map<String, FavorList> get favorList => {..._favorList};
+  int get favorItemCount => _favorList.length;
+  double get totalFavorCount {
+    double total = 0.0;
+    _favorList.forEach((key, favorItem) {
+      total += favorItem.price * favorItem.quantity;
+    });
+    return total;
+  }
 
   Map<String, CartItem> get cartItems => {..._cartItems};
   int get cartItemCount => _cartItems.length;
@@ -51,13 +60,9 @@ class HomePageProvider extends ChangeNotifier {
   HomePageProvider() {
     _startAutoScroll();
   }
+
   set items(List value) {
     _items = value;
-    notifyListeners();
-  }
-
-  set wishList(List value) {
-    _wishList = value;
     notifyListeners();
   }
 
@@ -94,10 +99,6 @@ class HomePageProvider extends ChangeNotifier {
       );
       notifyListeners();
     });
-  }
-
-  addToWishList(Map<String, dynamic> item) {
-    wishList.add(item);
   }
 
   Future<void> fetchData() async {
@@ -146,6 +147,41 @@ class HomePageProvider extends ChangeNotifier {
 
   void clearCart() {
     _cartItems = {};
+    notifyListeners();
+  }
+
+  void addItemToFavorList(String productId, double price, String title) {
+    if (_favorList.containsKey(productId)) {
+      _favorList.update(
+        productId,
+        (existingFavorItem) => FavorList(
+          id: existingFavorItem.id,
+          title: existingFavorItem.title,
+          quantity: existingFavorItem.quantity + 1,
+          price: existingFavorItem.price,
+        ),
+      );
+    } else {
+      _favorList.putIfAbsent(
+        productId,
+        () => FavorList(
+          id: DateTime.now().toString(),
+          title: title,
+          quantity: 1,
+          price: price,
+        ),
+      );
+    }
+    notifyListeners();
+  }
+
+  void removeItemFromFavorList(String productId) {
+    _favorList.remove(productId);
+    notifyListeners();
+  }
+
+  void clearFavorList() {
+    _favorList = {};
     notifyListeners();
   }
 }

@@ -19,19 +19,21 @@ class Body extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(67.0),
-        child: CustomAppbar(
-          bellFunctions: () {},
-          favoriteFunctions: () {
-            context.read<HomePageProvider>().clickedfavor();
-          },
-          cartFunction: () {},
-          bellIcons: CupertinoIcons.bell,
-          favoriteIcons: context.watch<HomePageProvider>().isfavor
-              ? Icons.favorite
-              : Icons.favorite_border,
-          cartIcons: CupertinoIcons.bag,
-          controller: context.watch<HomePageProvider>().userSearchController,
+        preferredSize: const Size.fromHeight(80.0),
+        child: SafeArea(
+          child: CustomAppbar(
+            bellFunctions: () {},
+            favoriteFunctions: () {
+              context.read<HomePageProvider>().clickedfavor();
+            },
+            cartFunction: () {},
+            bellIcons: CupertinoIcons.bell,
+            favoriteIcons: context.watch<HomePageProvider>().isfavor
+                ? Icons.favorite
+                : Icons.favorite_border,
+            cartIcons: CupertinoIcons.bag,
+            controller: context.watch<HomePageProvider>().userSearchController,
+          ),
         ),
       ),
       body: Consumer<HomePageProvider>(

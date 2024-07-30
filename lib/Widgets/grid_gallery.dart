@@ -89,7 +89,24 @@ class GridGallery extends StatelessWidget {
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              homePageProvider.addToWishList(products[index]);
+                                              homePageProvider.addItemToFavorList(
+                                                '$index',
+                                                1000,
+                                                products[index]['name']!,
+                                              );
+
+
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                  content: CustomText(
+                                                    text: '${products[index]['name']!} Product Liked !',
+                                                    size: 15,
+                                                    color: Colors.white,
+                                                    fw: FontWeight.bold,
+                                                    letterSpacing: 3,
+                                                  ),
+                                                ),
+                                              );
                                             },
                                             child: homePageProvider.isfavor
                                                 ? const Icon(
