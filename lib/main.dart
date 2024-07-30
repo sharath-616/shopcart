@@ -39,10 +39,6 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
-      path: HomePage.classId,
-      builder: (context, state) => const HomePage(),
-    ),
-    GoRoute(
       path: CartPage.classId,
       builder: (context, state) => const CartPage(),
     )

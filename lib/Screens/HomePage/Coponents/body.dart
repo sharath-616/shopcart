@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
+import 'package:shopcart/Screens/CartPage/cart_page.dart';
 import 'package:shopcart/Service/bank_adds.dart';
 import 'package:shopcart/Service/homepage_adds.dart';
 import 'package:shopcart/Service/homepage_circleavatar.dart';
@@ -26,11 +28,11 @@ class Body extends StatelessWidget {
             favoriteFunctions: () {
               context.read<HomePageProvider>().clickedfavor();
             },
-            cartFunction: () {},
+            cartFunction: () {
+              context.go(CartPage.classId);
+            },
             bellIcons: CupertinoIcons.bell,
-            favoriteIcons: context.watch<HomePageProvider>().isfavor
-                ? Icons.favorite
-                : Icons.favorite_border,
+            favoriteIcons: context.watch<HomePageProvider>().isfavor ? Icons.favorite : Icons.favorite_border,
             cartIcons: CupertinoIcons.bag,
             controller: context.watch<HomePageProvider>().userSearchController,
           ),

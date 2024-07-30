@@ -85,6 +85,8 @@ class ItemImage {
       required List itemName});
 
   get bank => null;
+
+  
 }
 
 final List<Map<String, String>> products = [

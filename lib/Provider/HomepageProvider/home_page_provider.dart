@@ -8,19 +8,16 @@ class HomePageProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool _isfavor = false;
   String _error = 'Something Went Wrong';
-  final ItemImage _itemImage = ItemImage([],
-      itemText: [],
-      adds: [],
-      shirts: [],
-      bank: [],
-      pants: [],
-      itemPrice: [],
-      itemName: []);
+  final ItemImage _itemImage =
+      ItemImage([], itemText: [], adds: [], shirts: [], bank: [], pants: [], itemPrice: [], itemName: []);
   final TextEditingController _userSearchController = TextEditingController();
   final PageController _pageViewController = PageController();
   int _currentImage = 0;
   Timer? _timer;
   int _selectedIndex = 0;
+
+
+
 
   Map<String, CartItem> _cartItems = {};
   Map<String, FavorList> _favorList = {};
@@ -140,9 +137,11 @@ class HomePageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItemFromCart(String productId) {
-    _cartItems.remove(productId);
-    notifyListeners();
+  void removeItemFromCart(int index) {
+    if (index >= 0 && index < _cartItems.length) {
+      _cartItems.remove(index);
+      notifyListeners();
+    }
   }
 
   void clearCart() {
@@ -175,8 +174,8 @@ class HomePageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItemFromFavorList(String productId) {
-    _favorList.remove(productId);
+  void removeItemFromFavorList(String key) {
+    _favorList.remove(key);
     notifyListeners();
   }
 

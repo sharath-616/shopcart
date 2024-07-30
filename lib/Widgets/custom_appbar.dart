@@ -93,32 +93,30 @@ class CustomAppbar extends StatelessWidget {
                 ),
               ),
               Consumer<HomePageProvider>(
-                builder: (context, homePageProvider, child) =>
-                 homePageProvider.favorList.isNotEmpty
-                      ? Positioned(
-                          right: 6,
-                          top: 10,
-                          child: Container(
-                            width: 20,
-                            height: 20,
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(color: Colors.black, width: 1),
-                            ),
-                            child: Center(
-                              child: CustomText(
-                                text: '${homePageProvider.favorItemCount}',
-                                size: 10,
-                                color: Colors.white,
-                                fw: FontWeight.bold,
-                              ),
+                builder: (context, homePageProvider, child) => homePageProvider.favorList.isNotEmpty
+                    ? Positioned(
+                        right: 6,
+                        top: 10,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: Center(
+                            child: CustomText(
+                              text: '${homePageProvider.favorItemCount}',
+                              size: 10,
+                              color: Colors.white,
+                              fw: FontWeight.bold,
                             ),
                           ),
-                        )
-                      : Container(),
-                
+                        ),
+                      )
+                    : Container(),
               ),
             ],
           ),
@@ -134,32 +132,30 @@ class CustomAppbar extends StatelessWidget {
                 ),
               ),
               Consumer<HomePageProvider>(
-                builder: (context, homePageProvider, child) =>
-                 homePageProvider.cartItemCount > 0
-                      ? Positioned(
-                          right: 6,
-                          top: 10,
-                          child: Container(
-                            width: 20,
-                            height: 20,
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(color: Colors.black, width: 1),
-                            ),
-                            child: Center(
-                              child: CustomText(
-                                text: '${homePageProvider.cartItemCount}',
-                                size: 10,
-                                color: Colors.white,
-                                fw: FontWeight.bold,
-                              ),
+                builder: (context, homePageProvider, child) => homePageProvider.cartItemCount > 0
+                    ? Positioned(
+                        right: 6,
+                        top: 10,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: Center(
+                            child: CustomText(
+                              text: '${homePageProvider.cartItemCount}',
+                              size: 10,
+                              color: Colors.white,
+                              fw: FontWeight.bold,
                             ),
                           ),
-                        )
-                      : Container(),
-              
+                        ),
+                      )
+                    : Container(),
               ),
             ],
           ),
