@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shopcart/Const/const.dart';
 import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
 import 'package:shopcart/Screens/HomePage/home_page.dart';
+import 'package:shopcart/Service/cart_item.dart';
 import 'package:shopcart/Widgets/custom_appbar.dart';
 import 'package:shopcart/Widgets/custom_text.dart';
 
@@ -18,7 +20,7 @@ class Body extends StatelessWidget {
         child: CustomAppbar(
           leading: IconButton(
             onPressed: () {
-              context.go('/home'); 
+              context.go(HomePage.classId);
             },
             icon: const Icon(
               Icons.close,
@@ -33,75 +35,97 @@ class Body extends StatelessWidget {
         builder: (context, homePageProvider, child) {
           if (homePageProvider.cartItems.isEmpty) {
             return const Center(
-              child: CustomText(
-                text: 'No More Items',
-                size: 30,
-                fw: FontWeight.w600,
-                letterSpacing: 4,
-                color: Colors.black,
+              child: Padding(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: CustomText(
+                  text: 'No More Item',
+                  size: 30,
+                  fw: FontWeight.w600,
+                  letterSpacing: 4,
+                  color: Colors.black,
+                ),
               ),
             );
           } else {
             return ListView.builder(
               itemCount: homePageProvider.cartItems.length,
               itemBuilder: (context, index) {
-                final cartItemKey = homePageProvider.cartItems.keys.toList()[index];
-                final cartItem = homePageProvider.cartItems[cartItemKey]!;
+                String key = homePageProvider.cartItems.keys.elementAt(index);
+                CartItem cartItem = homePageProvider.cartItems[key]!;
 
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 10,
-                        spreadRadius: 1,
-                      )
-                    ],
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    children: [
-                      if (cartItem.imagePath != null)
-                        Image.asset(
-                          cartItem.imagePath['image'],
-                          fit: BoxFit.cover,
+                return Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: const [
+                        shadow,
+                      ],
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        sizedBox,
+                        CustomText(
+                          text: 'Product : (${homePageProvider.cartItemCount})',
+                          color: Colors.black,
+                          fw: FontWeight.w600,
+                          letterSpacing: 2,
+                          size: 20,
                         ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        sizedBox,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CustomText(
-                              text: cartItem.title,
-                              size: 20,
-                              fw: FontWeight.bold,
-                            ),
-                            CustomText(
-                              text: '\$${cartItem.price}',
-                              size: 18,
-                              fw: FontWeight.w500,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CustomText(
-                                  text: 'Quantity: ${cartItem.quantity}',
-                                  size: 16,
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.delete, color: Colors.black),
-                                  onPressed: () {
-                                    homePageProvider.removeItemFromCart(cartItemKey as int);
-                                  },
-                                ),
-                              ],
+                            if (cartItem.imagePath != null && cartItem.imagePath.isNotEmpty)
+                              Image.asset(
+                                cartItem.imagePath,
+                                fit: BoxFit.cover,
+                                width: 100,
+                                height: 100,
+                              ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, right: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomText(
+                                    text: cartItem.title,
+                                    size: 20,
+                                    fw: FontWeight.bold,
+                                  ),
+                                  CustomText(
+                                    text: '\$${cartItem.price}',
+                                    size: 18,
+                                    fw: FontWeight.w500,
+                                  ),
+                                  CustomText(
+                                    text: 'Quantity: ${cartItem.quantity}',
+                                    size: 16,
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      homePageProvider.removeItemFromCart(key as int);
+                                    },
+                                    child: const Align(
+                                      alignment: Alignment(10, 30),
+                                      child: CustomText(
+                                        text: 'Remove',
+                                        color: Colors.black,
+                                        fw: FontWeight.w600,
+                                        size: 20,
+                                        letterSpacing: 1,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },

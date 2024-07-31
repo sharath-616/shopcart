@@ -58,6 +58,8 @@ class HomePageProvider extends ChangeNotifier {
     _startAutoScroll();
   }
 
+  get imagePath => null;
+
   set items(List value) {
     _items = value;
     notifyListeners();

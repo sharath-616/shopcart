@@ -34,13 +34,16 @@ class MyApp extends StatelessWidget {
 final GoRouter _router = GoRouter(
   initialLocation: HomePage.classId,
   routes: [
+    
     GoRoute(
       path: HomePage.classId,
       builder: (context, state) => const HomePage(),
     ),
+
     GoRoute(
       path: CartPage.classId,
       builder: (context, state) => const CartPage(),
-    )
+    ),
+
   ],
 );
