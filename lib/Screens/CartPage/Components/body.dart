@@ -5,6 +5,7 @@ import 'package:shopcart/Const/const.dart';
 import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
 import 'package:shopcart/Screens/HomePage/home_page.dart';
 import 'package:shopcart/Service/cart_item.dart';
+import 'package:shopcart/Service/total_price.dart';
 import 'package:shopcart/Widgets/custom_appbar.dart';
 import 'package:shopcart/Widgets/custom_text.dart';
 
@@ -33,104 +34,131 @@ class Body extends StatelessWidget {
       ),
       body: Consumer<HomePageProvider>(
         builder: (context, homePageProvider, child) {
-          if (homePageProvider.cartItems.isEmpty) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
-                child: CustomText(
-                  text: 'No More Item',
-                  size: 30,
-                  fw: FontWeight.w600,
-                  letterSpacing: 4,
-                  color: Colors.black,
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText(
+                      text: 'Products (${homePageProvider.cartItemCount})',
+                      color: Colors.black,
+                      fw: FontWeight.w600,
+                      letterSpacing: 2,
+                      size: 20,
+                    ),
+                  ],
                 ),
               ),
-            );
-          } else {
-            return ListView.builder(
-              itemCount: homePageProvider.cartItems.length,
-              itemBuilder: (context, index) {
-                String key = homePageProvider.cartItems.keys.elementAt(index);
-                CartItem cartItem = homePageProvider.cartItems[key]!;
-
-                return Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        shadow,
-                      ],
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        sizedBox,
-                        CustomText(
-                          text: 'Product : (${homePageProvider.cartItemCount})',
-                          color: Colors.black,
-                          fw: FontWeight.w600,
-                          letterSpacing: 2,
-                          size: 20,
+              sizedBox,
+              Expanded(
+                child: homePageProvider.cartItems.isEmpty
+                    ? const Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: CustomText(
+                            text: 'No More Items',
+                            size: 30,
+                            fw: FontWeight.w600,
+                            letterSpacing: 4,
+                            color: Colors.black,
+                          ),
                         ),
-                        sizedBox,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            if (cartItem.imagePath != null && cartItem.imagePath.isNotEmpty)
-                              Image.asset(
-                                cartItem.imagePath,
-                                fit: BoxFit.cover,
-                                width: 100,
-                                height: 100,
+                      )
+                    : ListView.builder(
+                        itemCount: homePageProvider.cartItems.length,
+                        itemBuilder: (context, index) {
+                          String key = homePageProvider.cartItems.keys.elementAt(index);
+                          CartItem cartItem = homePageProvider.cartItems[key]!;
+
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  shadow,
+                                ],
+                                color: Colors.white,
                               ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10, right: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  CustomText(
-                                    text: cartItem.title,
-                                    size: 20,
-                                    fw: FontWeight.bold,
-                                  ),
-                                  CustomText(
-                                    text: '\$${cartItem.price}',
-                                    size: 18,
-                                    fw: FontWeight.w500,
-                                  ),
-                                  CustomText(
-                                    text: 'Quantity: ${cartItem.quantity}',
-                                    size: 16,
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      homePageProvider.removeItemFromCart(key as int);
-                                    },
-                                    child: const Align(
-                                      alignment: Alignment(10, 30),
-                                      child: CustomText(
-                                        text: 'Remove',
-                                        color: Colors.black,
-                                        fw: FontWeight.w600,
-                                        size: 20,
-                                        letterSpacing: 1,
+                                  sizedBox,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      if (cartItem.imagePath.isNotEmpty)
+                                        Image.asset(
+                                          cartItem.imagePath,
+                                          fit: BoxFit.cover,
+                                          width: 100,
+                                          height: 100,
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return const Icon(
+                                              Icons.image,
+                                              size: 40,
+                                              color: Colors.black,
+                                            );
+                                          },
+                                        )
+                                      else
+                                        const Icon(
+                                          Icons.image,
+                                          size: 40,
+                                          color: Colors.black,
+                                        ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10, right: 10),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            CustomText(
+                                              text: cartItem.title,
+                                              size: 20,
+                                              fw: FontWeight.bold,
+                                            ),
+                                            CustomText(
+                                              text: 'Price: \$${cartItem.price.toStringAsFixed(2)}',
+                                              size: 18,
+                                              fw: FontWeight.w500,
+                                            ),
+                                            CustomText(
+                                              text: 'Quantity: ${cartItem.quantity}',
+                                              size: 16,
+                                            ),
+                                            divider,
+                                            TextButton(
+                                              onPressed: () {
+                                                homePageProvider.removeItemFromCart(int.parse(key));
+                                              },
+                                              child: const Align(
+                                                alignment: Alignment(0, 50),
+                                                child: CustomText(
+                                                  text: 'Remove',
+                                                  color: Colors.black,
+                                                  fw: FontWeight.w600,
+                                                  size: 20,
+                                                  letterSpacing: 1,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          }
+                          );
+                        },
+                      ),
+              ),
+              const TotalPrice(),
+            ],
+          );
         },
       ),
     );

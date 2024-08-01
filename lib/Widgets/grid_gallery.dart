@@ -95,7 +95,6 @@ class GridGallery extends StatelessWidget {
                                                 products[index]['name']!,
                                               );
 
-
                                               ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(
                                                   content: CustomText(

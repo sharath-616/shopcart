@@ -16,9 +16,6 @@ class HomePageProvider extends ChangeNotifier {
   Timer? _timer;
   int _selectedIndex = 0;
 
-
-
-
   Map<String, CartItem> _cartItems = {};
   Map<String, FavorList> _favorList = {};
 
@@ -100,6 +97,14 @@ class HomePageProvider extends ChangeNotifier {
     });
   }
 
+  double get totalAmount {
+    double total = 0.0;
+    cartItems.forEach((key, item) {
+      total += item.price * item.quantity;
+    });
+    return total;
+  }
+
   Future<void> fetchData() async {
     setLoading(true);
     try {
@@ -123,6 +128,7 @@ class HomePageProvider extends ChangeNotifier {
           title: existingCartItem.title,
           quantity: existingCartItem.quantity + 1,
           price: existingCartItem.price,
+          imagePath: '',
         ),
       );
     } else {
@@ -133,6 +139,7 @@ class HomePageProvider extends ChangeNotifier {
           title: title,
           quantity: 1,
           price: price,
+          imagePath: '',
         ),
       );
     }

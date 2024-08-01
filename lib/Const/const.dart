@@ -15,6 +15,14 @@ const shadow = BoxShadow(
   ),
 );
 
+const divider = Padding(
+  padding: EdgeInsets.only(left: 20, right: 20),
+  child: Divider(
+    color: Colors.black,
+    thickness: 2,
+  ),
+);
+
 const horizontalDivider = SizedBox(
   width: double.infinity,
   child: Divider(
@@ -24,5 +32,3 @@ const horizontalDivider = SizedBox(
     endIndent: 20,
   ),
 );
-
-
