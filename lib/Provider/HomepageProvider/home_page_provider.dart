@@ -8,8 +8,8 @@ class HomePageProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool _isfavor = false;
   String _error = 'Something Went Wrong';
-  final ItemImage _itemImage =
-      ItemImage([], itemText: [], adds: [], shirts: [], bank: [], pants: [], itemPrice: [], itemName: []);
+  final ItemImage _itemImage = ItemImage([],
+      itemText: [], adds: [], shirts: [], bank: [], pants: [], itemPrice: [], itemName: [], imagePath: '');
   final TextEditingController _userSearchController = TextEditingController();
   final PageController _pageViewController = PageController();
   int _currentImage = 0;

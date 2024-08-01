@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shopcart/Const/const.dart';
 import 'package:shopcart/Const/local_images.dart';
 import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
-import 'package:shopcart/Screens/CartPage/cart_page.dart';
+import 'package:shopcart/Screens/DetailPage/details_page.dart';
 import 'package:shopcart/Widgets/custom_text.dart';
 
 class GridGallery extends StatelessWidget {
@@ -48,7 +48,7 @@ class GridGallery extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
                           onTap: () {
-                            context.go(CartPage.classId);
+                            context.go(DetailsPage.classId);
                           },
                           child: Container(
                             decoration: BoxDecoration(

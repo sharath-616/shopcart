@@ -89,26 +89,25 @@ class Body extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      if (cartItem.imagePath.isNotEmpty)
-                                        Image.asset(
-                                          cartItem.imagePath,
-                                          fit: BoxFit.cover,
-                                          width: 100,
-                                          height: 100,
-                                          errorBuilder: (context, error, stackTrace) {
-                                            return const Icon(
+                                      cartItem.imagePath.isNotEmpty
+                                          ? Image.asset(
+                                              cartItem.imagePath,
+                                              fit: BoxFit.cover,
+                                              width: 100,
+                                              height: 100,
+                                              errorBuilder: (context, error, stackTrace) {
+                                                return const Icon(
+                                                  Icons.image,
+                                                  size: 40,
+                                                  color: Colors.black,
+                                                );
+                                              },
+                                            )
+                                          : const Icon(
                                               Icons.image,
                                               size: 40,
                                               color: Colors.black,
-                                            );
-                                          },
-                                        )
-                                      else
-                                        const Icon(
-                                          Icons.image,
-                                          size: 40,
-                                          color: Colors.black,
-                                        ),
+                                            ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: 10, right: 10),
                                         child: Column(

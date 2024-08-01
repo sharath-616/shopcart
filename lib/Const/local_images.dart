@@ -75,6 +75,7 @@ class ItemImage {
     'assets/jeans/download (8).jpg',
   ];
 
+  final String imagePath;
   ItemImage(List list,
       {required List<String> itemText,
       required List<String> adds,
@@ -82,11 +83,10 @@ class ItemImage {
       required List bank,
       required List pants,
       required List itemPrice,
-      required List itemName});
+      required List itemName,
+      required this.imagePath});
 
-  get bank => null;
-
-  
+ 
 }
 
 final List<Map<String, String>> products = [
