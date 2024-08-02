@@ -134,10 +134,12 @@ class GridGallery extends StatelessWidget {
                                           color: Colors.black,
                                           onPressed: () {
                                             homePageProvider.addItemToCart(
-                                              'shirt$index',
-                                              1000,
-                                              products[index]['name']!,
+                                              productId: 'shirt$index',
+                                              price: int.parse(products[index]['price']!).toDouble(),
+                                              title: products[index]['name']!,
+                                              imagePath: products[index]['image']!,
                                             );
+
                                             ScaffoldMessenger.of(context).showSnackBar(
                                               SnackBar(
                                                 content: CustomText(

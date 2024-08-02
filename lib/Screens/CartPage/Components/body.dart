@@ -42,7 +42,7 @@ class Body extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomText(
-                      text: 'Products (${homePageProvider.cartItemCount})',
+                      text: 'Products (${homePageProvider.cartItemCount})', // Cart item count
                       color: Colors.black,
                       fw: FontWeight.w600,
                       letterSpacing: 2,
@@ -130,7 +130,7 @@ class Body extends StatelessWidget {
                                             divider,
                                             TextButton(
                                               onPressed: () {
-                                                homePageProvider.removeItemFromCart(int.parse(key));
+                                                homePageProvider.removeItemFromCart(key); 
                                               },
                                               child: const Align(
                                                 alignment: Alignment(0, 50),

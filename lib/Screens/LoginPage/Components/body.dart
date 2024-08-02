@@ -37,6 +37,19 @@ class Body extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const Padding(
+                    padding: EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: CustomText(
+                      text:
+                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+                      color: Colors.black,
+                      size: 15,
+                      fw: FontWeight.normal,
+                    ),
+                  ),
                   CustomTextformField(
                     keyboardType: TextInputType.number,
                     hintText: 'User Name',
@@ -87,13 +100,15 @@ class Body extends StatelessWidget {
                       backgroundColor: Colors.black,
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: CustomText(
-                              text: 'Processing Data',
-                              size: 20,
-                              color: Colors.black,
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: CustomText(
+                                text: 'Processing Data',
+                                size: 20,
+                                color: Colors.black,
+                              ),
                             ),
-                          ));
+                          );
 
                           bool success = await loginprovider.postData();
 

@@ -119,7 +119,12 @@ class HomePageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addItemToCart(String productId, double price, String title) {
+  void addItemToCart({
+    required String productId,
+    required double price,
+    required String title,
+    required String imagePath,
+  }) {
     if (_cartItems.containsKey(productId)) {
       _cartItems.update(
         productId,
@@ -128,7 +133,7 @@ class HomePageProvider extends ChangeNotifier {
           title: existingCartItem.title,
           quantity: existingCartItem.quantity + 1,
           price: existingCartItem.price,
-          imagePath: '',
+          imagePath: imagePath, 
         ),
       );
     } else {
@@ -139,18 +144,16 @@ class HomePageProvider extends ChangeNotifier {
           title: title,
           quantity: 1,
           price: price,
-          imagePath: '',
+          imagePath: imagePath, 
         ),
       );
     }
     notifyListeners();
   }
 
-  void removeItemFromCart(int index) {
-    if (index >= 0 && index < _cartItems.length) {
-      _cartItems.remove(index);
-      notifyListeners();
-    }
+  void removeItemFromCart(String productId) {
+    _cartItems.remove(productId);
+    notifyListeners();
   }
 
   void clearCart() {

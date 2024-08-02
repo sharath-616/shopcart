@@ -6,6 +6,7 @@ import 'package:shopcart/Provider/LoginPageProvider/loginpage_provider.dart';
 import 'package:shopcart/Screens/CartPage/cart_page.dart';
 import 'package:shopcart/Screens/DetailPage/details_page.dart';
 import 'package:shopcart/Screens/HomePage/home_page.dart';
+import 'package:shopcart/Screens/LoginPage/login_page.dart';
 
 void main() => runApp(MultiProvider(
       providers: [
@@ -35,10 +36,14 @@ class MyApp extends StatelessWidget {
 final GoRouter _router = GoRouter(
   initialLocation: HomePage.classId,
   routes: [
-    GoRoute(
+     GoRoute(
       path: HomePage.classId,
       builder: (context, state) => const HomePage(),
     ),
+    // GoRoute(
+    //   path: HomePage.classId,
+    //   builder: (context, state) => const HomePage(),
+    // ),
     GoRoute(
       path: DetailsPage.classId,
       builder: (context, state) => const DetailsPage(),

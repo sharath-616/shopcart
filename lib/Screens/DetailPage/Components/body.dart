@@ -7,6 +7,7 @@ import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
 import 'package:shopcart/Screens/CartPage/cart_page.dart';
 import 'package:shopcart/Screens/HomePage/home_page.dart';
 import 'package:shopcart/Widgets/custom_appbar.dart';
+import 'package:shopcart/Widgets/justadd_forusers.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
@@ -79,6 +80,15 @@ class Body extends StatelessWidget {
                         ),
                       ),
               ),
+              const JustaddForusers(
+                icon: Icons.favorite,
+                addText: '30K shoppers wishlisted in last 30Days',
+                addColor: Colors.black,
+                addSize: 15,
+                addfw: FontWeight.bold,
+                addspace: 1,
+              ),
+              sizedBox,
             ],
           ),
         ),
