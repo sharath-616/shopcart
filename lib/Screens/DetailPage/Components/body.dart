@@ -7,10 +7,13 @@ import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
 import 'package:shopcart/Screens/CartPage/cart_page.dart';
 import 'package:shopcart/Screens/HomePage/home_page.dart';
 import 'package:shopcart/Widgets/custom_appbar.dart';
+import 'package:shopcart/Widgets/custom_text.dart';
 import 'package:shopcart/Widgets/justadd_forusers.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,38 +51,27 @@ class Body extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               sizedBox,
-              Container(
-                height: 300,
-                decoration: BoxDecoration(
-                  boxShadow: const [
-                    shadow,
-                  ],
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: homePageProvider.itemImage.shirts[0].isEmpty
-                    ? Image.asset(
-                        homePageProvider.itemImage.imagePath,
-                        fit: BoxFit.cover,
-                        width: 100,
-                        height: 100,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Center(
-                            child: Icon(
-                              Icons.image,
-                              size: 40,
-                              color: Colors.black,
-                            ),
-                          );
-                        },
-                      )
-                    : const Center(
-                        child: Icon(
-                          Icons.image,
-                          size: 40,
-                          color: Colors.black,
-                        ),
+              homePageProvider.cartItems.isNotEmpty
+                  ? Container(
+                      height: 300,
+                      decoration: BoxDecoration(
+                        boxShadow: const [
+                          shadow,
+                        ],
+                        borderRadius: BorderRadius.circular(5),
                       ),
-              ),
+                      child: Image.asset(
+                        homePageProvider.products[0]['image']!,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : const CustomText(
+                      text: 'Something Went Wrong',
+                      color: Colors.black,
+                      fw: FontWeight.w600,
+                      size: 20,
+                      letterSpacing: 1,
+                    ),
               const JustaddForusers(
                 icon: Icons.favorite,
                 addText: '30K shoppers wishlisted in last 30Days',

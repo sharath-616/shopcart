@@ -42,7 +42,7 @@ class Body extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomText(
-                      text: 'Products (${homePageProvider.cartItemCount})', // Cart item count
+                      text: 'Products (${homePageProvider.cartItemCount})',
                       color: Colors.black,
                       fw: FontWeight.w600,
                       letterSpacing: 2,
@@ -90,18 +90,21 @@ class Body extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       cartItem.imagePath.isNotEmpty
-                                          ? Image.asset(
-                                              cartItem.imagePath,
-                                              fit: BoxFit.cover,
-                                              width: 100,
-                                              height: 100,
-                                              errorBuilder: (context, error, stackTrace) {
-                                                return const Icon(
-                                                  Icons.image,
-                                                  size: 40,
-                                                  color: Colors.black,
-                                                );
-                                              },
+                                          ? Padding(
+                                              padding: const EdgeInsets.only(left: 15, right: 15),
+                                              child: Image.asset(
+                                                cartItem.imagePath,
+                                                fit: BoxFit.cover,
+                                                width: 100,
+                                                height: 100,
+                                                errorBuilder: (context, error, stackTrace) {
+                                                  return const Icon(
+                                                    Icons.image,
+                                                    size: 40,
+                                                    color: Colors.black,
+                                                  );
+                                                },
+                                              ),
                                             )
                                           : const Icon(
                                               Icons.image,
@@ -128,18 +131,25 @@ class Body extends StatelessWidget {
                                               size: 16,
                                             ),
                                             divider,
-                                            TextButton(
-                                              onPressed: () {
-                                                homePageProvider.removeItemFromCart(key); 
-                                              },
-                                              child: const Align(
-                                                alignment: Alignment(0, 50),
-                                                child: CustomText(
-                                                  text: 'Remove',
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                height: 50,
+                                                decoration:  BoxDecoration(
                                                   color: Colors.black,
-                                                  fw: FontWeight.w600,
-                                                  size: 20,
-                                                  letterSpacing: 1,
+                                                  borderRadius: BorderRadius.circular(5),
+                                                  ),
+                                                child: TextButton(
+                                                  onPressed: () {
+                                                    homePageProvider.removeItemFromCart(int.parse(key));
+                                                  },
+                                                  child: const CustomText(
+                                                    text: 'Remove',
+                                                    color: Colors.white,
+                                                    fw: FontWeight.w600,
+                                                    size: 15,
+                                                    letterSpacing: 1,
+                                                  ),
                                                 ),
                                               ),
                                             ),

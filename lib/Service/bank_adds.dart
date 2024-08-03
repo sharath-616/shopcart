@@ -12,18 +12,19 @@ class BankAdds extends StatelessWidget {
     return Consumer<HomePageProvider>(
       builder: (context, homePageProvider, child) => homePageProvider.itemImage.bankAdds.isEmpty
           ? const Center(
-             child: CustomText(text: 'No items available'),
+              child: CustomText(text: 'No items available'),
             )
           : SizedBox(
               height: 50,
+              width: double.infinity,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: homePageProvider.itemImage.bankAdds.length,
                 itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(3.0),
                   child: Container(
-                    height: 50,
-                    width: 100,
+                    height: 70,
+                    width: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       boxShadow: const [

@@ -20,12 +20,12 @@ class ItemImage {
   ];
 
   final List<String> bankAdds = [
-    'assets/bank/Reliance-Logo.png',
-    'assets/bank/Federal_Bank_Logo.png',
-    'assets/bank/Reliance-Logo.png',
-    'assets/bank/Federal_Bank_Logo.png',
-    'assets/bank/Reliance-Logo.png',
-    'assets/bank/Federal_Bank_Logo.png',
+    'assets/bank/1.jpg',
+    'assets/bank/2.jpg',
+    'assets/bank/3.jpg',
+    'assets/bank/4.jpg',
+    'assets/bank/5.jpg',
+    'assets/bank/6.jpg',
   ];
   final List<String> itemText = [
     'Sale',

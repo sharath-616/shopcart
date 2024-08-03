@@ -38,7 +38,8 @@ class TotalPrice extends StatelessWidget {
                         fw: FontWeight.w600,
                         letterSpacing: 1,
                       )),
-                )
+                ),
+                sizedBox,
               ],
             ));
   }

@@ -31,6 +31,9 @@ class HomePageProvider extends ChangeNotifier {
   int get currentImage => _currentImage;
   Timer? get timer => _timer;
 
+  final List<Map<String, String>> _products = [];
+
+  List<Map<String, String>> get products => _products;
   Map<String, FavorList> get favorList => {..._favorList};
   int get favorItemCount => _favorList.length;
   double get totalFavorCount {
@@ -119,12 +122,7 @@ class HomePageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addItemToCart({
-    required String productId,
-    required double price,
-    required String title,
-    required String imagePath,
-  }) {
+  void addItemToCart(String productId, double price, String title, String imagePath) {
     if (_cartItems.containsKey(productId)) {
       _cartItems.update(
         productId,
@@ -133,7 +131,7 @@ class HomePageProvider extends ChangeNotifier {
           title: existingCartItem.title,
           quantity: existingCartItem.quantity + 1,
           price: existingCartItem.price,
-          imagePath: imagePath, 
+          imagePath: imagePath,
         ),
       );
     } else {
@@ -144,16 +142,18 @@ class HomePageProvider extends ChangeNotifier {
           title: title,
           quantity: 1,
           price: price,
-          imagePath: imagePath, 
+          imagePath: imagePath,
         ),
       );
     }
     notifyListeners();
   }
 
-  void removeItemFromCart(String productId) {
-    _cartItems.remove(productId);
-    notifyListeners();
+  void removeItemFromCart(int key) {
+    if (_cartItems.containsKey(key)) {
+      _cartItems.remove(key);
+      notifyListeners();
+    }
   }
 
   void clearCart() {
