@@ -104,7 +104,7 @@ class Body extends StatelessWidget {
                             const SnackBar(
                               content: CustomText(
                                 text: 'Processing Data',
-                                size: 20,
+                                size: 20,   
                                 color: Colors.black,
                               ),
                             ),
