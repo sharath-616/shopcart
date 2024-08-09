@@ -151,7 +151,7 @@ class HomePageProvider extends ChangeNotifier {
           price: existingCartItem.price,
           imagePath: imagePath,
         ),
-      );
+      );//dofdofhfshf
     } else {
       _cartItems.putIfAbsent(
         productId,
