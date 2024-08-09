@@ -139,7 +139,7 @@ class HomePageProvider extends ChangeNotifier {
     if (cartTotal != 0.0) {
       cartTotal += price;
     } else {
-      cartTotal = price;
+      cartTotal = price;//klsnsf
     }
     if (_cartItems.containsKey(productId)) {
       _cartItems.update(
