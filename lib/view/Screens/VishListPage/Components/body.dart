@@ -137,7 +137,7 @@ class Body extends StatelessWidget {
                                                           key: key, qty: cartItem.quantity, price: cartItem.price);
                                                     },
                                                     child: const CustomText(
-                                                      text: 'Remove',
+                                                      text: 'Add to cart',
                                                       color: Colors.white,
                                                       fw: FontWeight.w600,
                                                       size: 15,
