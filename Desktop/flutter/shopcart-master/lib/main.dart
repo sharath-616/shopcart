@@ -4,9 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:shopcart/Provider/HomepageProvider/home_page_provider.dart';
 import 'package:shopcart/Provider/LoginPageProvider/loginpage_provider.dart';
 import 'package:shopcart/Screens/CartPage/cart_page.dart';
-import 'package:shopcart/Screens/DetailPage/details_page.dart';
 import 'package:shopcart/Screens/HomePage/home_page.dart';
-import 'package:shopcart/Screens/LoginPage/login_page.dart';
+
 
 void main() => runApp(MultiProvider(
       providers: [

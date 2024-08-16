@@ -13,7 +13,7 @@ import 'package:shopcart/Widgets/justadd_forusers.dart';
 
 class Body extends StatelessWidget {
   final int index;
-  Body({super.key, required this.index});
+  const Body({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +41,7 @@ class Body extends StatelessWidget {
             context.go(CartPage.classId);
           },
           bellIcons: CupertinoIcons.bell,
-          favoriteIcons: context.watch<HomePageProvider>().isfavor
-              ? Icons.favorite
-              : Icons.favorite_border,
+          favoriteIcons: context.watch<HomePageProvider>().isfavor ? Icons.favorite : Icons.favorite_border,
           cartIcons: CupertinoIcons.bag,
         ),
       ),
@@ -53,8 +51,7 @@ class Body extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               sizedBox,
-              // homePageProvider.cartItems.isNotEmpty
-              // ?
+          
               InkWell(
                 onTap: () {
                   print(index);
@@ -73,17 +70,14 @@ class Body extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                products[index]['name']!,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+             
+              CustomText(
+                text: products[index]['name']!,
+                color: Colors.black,
+                fw: FontWeight.w600,
+                size: 20,
+                letterSpacing: 1,
               ),
-              // : const CustomText(
-              //     text: 'Something Went Wrong',
-              //     color: Colors.black,
-              //     fw: FontWeight.w600,
-              //     size: 20,
-              //     letterSpacing: 1,
-              //   ),
               const JustaddForusers(
                 icon: Icons.favorite,
                 addText: '30K shoppers wishlisted in last 30Days',
