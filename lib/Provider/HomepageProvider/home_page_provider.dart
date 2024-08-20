@@ -135,7 +135,11 @@ class HomePageProvider extends ChangeNotifier {
   }
 
   void addItemToCart(
-      String productId, double price, String title, String imagePath) {
+      String productId, 
+      double price, 
+      String title, 
+      String imagePath
+      ) {
     if (cartTotal != 0.0) {
       cartTotal += price;
     } else {
